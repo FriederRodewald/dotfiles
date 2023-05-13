@@ -1,5 +1,4 @@
 return {
-
       {
             'quarto-dev/quarto-nvim',
             dev = false,

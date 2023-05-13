@@ -37,8 +37,10 @@ nmap("<C-Right>", "<cmd>vertical resize +2<CR>")
 -- needs kitty (or other terminal) config:
 -- map shift+enter send_text all \x1b[13;2u
 -- map ctrl+enter send_text all \x1b[13;5u
-nmap('<c-cr>', '<Plug>SlimeSendCell')
-imap('<c-cr>', '<esc><Plug>SlimeSendCell<cr>i')
+nmap('<c-cr>', '<cmd>SlimeSendCurrentLine<cr>')
+nmap('<s-cr>', '<cmd>SlimeSendCurrentLine<cr><Down>')
+imap('<c-cr>', '<esc><cmd>SlimeSendCurrentLine<cr>i')
+imap('<s-cr>', '<esc><cmd>SlimeSendCurrentLine<cr><Down>i')
 
 -- keep selection after indent/dedent
 vmap('>', '>gv')
@@ -67,12 +69,8 @@ nmap('leader>o', '<cmd>put =""<CR>')
 imap("jk", "<ESC>")
 
 -- move between splits and tabs
-nmap('<c-h>', '<c-w>h')
-nmap('<c-l>', '<c-w>l')
-nmap('<c-j>', '<c-w>j')
-nmap('<c-k>', '<c-w>k')
-nmap('H', '<cmd>tabprevious<cr>')
-nmap('L', '<cmd>tabnext<cr>')
+nmap('<s-h>', '<cmd>bprevious<cr>')
+nmap('<s-l>', '<cmd>bnext<cr>')
 
 --show kepbindings with whichkey
 --add your own here if you want them to
