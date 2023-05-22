@@ -22,9 +22,9 @@ return {
                   -- { 'quarto-dev/quarto-vim',
                   --   ft = 'quarto',
                   --   dependencies = { 'vim-pandoc/vim-pandoc-syntax' },
-                  --   -- note: needs additional syntax highlighting enabled for markdown
-                  --   --       in `nvim-treesitter`
-                  --   config = function()
+                    -- note: needs additional syntax highlighting enabled for markdown
+                    --       in `nvim-treesitter`
+                    -- config = function()
                   -- conceal can be tricky because both
                   -- the treesitter highlighting and the
                   -- regex vim syntax files can define conceals
@@ -42,7 +42,7 @@ return {
                   -- -- but allow some types of conceal in math regions:
                   -- -- see `:h g:tex_conceal`
                   -- vim.g['tex_conceal'] = 'gm'
-                  -- --   end
+                    -- end
                   -- },
 
             },
