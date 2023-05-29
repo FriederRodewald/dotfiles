@@ -13,7 +13,8 @@ vim.opt.mouse = 'a' -- enable mouse
 vim.opt.clipboard:append 'unnamedplus' -- use system clipboard
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
-vim.opt.timeoutlen = 300                        -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.o.timeout = true
+vim.opt.timeoutlen = 600                        -- time to wait for a mapped sequence to complete (in milliseconds)
 vim.opt.undofile = true                         -- enable persistent undo
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
