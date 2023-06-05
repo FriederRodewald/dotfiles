@@ -101,6 +101,12 @@ return {
                         flags = lsp_flags
                   }
 
+                  lspconfig.html.setup {
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        flags = lsp_flags
+                  }
+
                   lspconfig.emmet_ls.setup {
                         on_attach = on_attach,
                         capabilities = capabilities,

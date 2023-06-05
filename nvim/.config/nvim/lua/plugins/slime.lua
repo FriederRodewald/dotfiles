@@ -4,6 +4,7 @@ return {
       {
             'jpalardy/vim-slime',
             init = function()
+                  vim.b['quarto_is_' .. 'python' .. '_chunk'] = false
                   Quarto_is_in_python_chunk = function()
                         require 'otter.tools.functions'.is_otter_language_context('python')
                   end
@@ -12,7 +13,7 @@ return {
       function SlimeOverride_EscapeText_quarto(text)
       call v:lua.Quarto_is_in_python_chunk()
       if exists('g:slime_python_ipython') && len(split(a:text,"\n")) > 1 && b:quarto_is_python_chunk
-      return ["%cpaste -q", "\n", g:slime_dispatch_ipython_pause, a:text, "--", "\n"]
+      return ["%cpaste -q", "\n", a:text, "--", "\n"]     
       else
       return a:text
       end
@@ -28,7 +29,7 @@ return {
                         vim.b.slime_config = { jobid = vim.g.slime_last_channel }
                   end
 
-                  vim.b.slime_cell_delimiter = "#%%"
+                  vim.b.slime_cell_delimiter = "# %%"
 
                   -- slime, neovvim terminal
                   vim.g.slime_target = "neovim"

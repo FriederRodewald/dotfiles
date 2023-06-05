@@ -114,6 +114,10 @@ wk.register(
                               'enable cmp for current buffer' },
                   },
             },
+            o = {
+                  name = 'otter',
+                  a = { require 'otter'.dev_setup, 'activate' },
+            },
             q = {
                   name = 'quarto',
                   a = { ":QuartoActivate<cr>", 'activate' },
