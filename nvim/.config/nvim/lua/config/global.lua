@@ -7,7 +7,6 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.ruler = false                           -- hide the line and column number of the cursor position
 vim.opt.numberwidth = 3                         -- minimal number of columns to use for the line number {default 4}
-vim.opt.timeoutlen = 400 -- until which-key pops up
 vim.opt.updatetime = 150 -- for autocommands and hovers
 vim.opt.mouse = 'a' -- enable mouse
 vim.opt.clipboard:append 'unnamedplus' -- use system clipboard

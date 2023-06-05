@@ -62,9 +62,6 @@ nmap('n', "nzz")
 nmap('<c-d>', '<c-d>zz')
 nmap('<c-u>', '<c-u>zz')
 
--- Enter blank line
-nmap('leader>o', '<cmd>put =""<CR>')
-
 -- Press jk fast to enter
 imap("jk", "<ESC>")
 
