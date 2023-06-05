@@ -1,0 +1,7 @@
+alias q="exit"
+alias c="clear"
+alias v="nvim"
+alias vi="nvim"
+alias R="radian"
+alias r="radian"
+alias o="gnome-open"
