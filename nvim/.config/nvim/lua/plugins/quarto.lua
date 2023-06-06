@@ -48,11 +48,10 @@ return {
             },
             config = function()
                   require 'quarto'.setup {
-                        debug = false,
                         closePreviewOnExit = true,
                         lspFeatures = {
                               enabled = true,
-                              chunks = 'all', -- 'curly' or 'all'
+                              chunks = 'curly', -- 'curly' or 'all'
                               languages = { 'r', 'python', 'julia', 'bash', 'lua', 'html' },
                               diagnostics = {
                                     enabled = true,
