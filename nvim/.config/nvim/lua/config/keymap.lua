@@ -93,6 +93,7 @@ wk.register(
                         e = { ':lua require(\'cmp\').setup.buffer { enabled = true }<cr>',
                               'enable cmp for current buffer' },
                   },
+                  t    = { ':TroubleToggle<cr>', 'toggle trouble' },
             },
             q = {
                   name = 'quarto',
