@@ -9,6 +9,7 @@ return {
                   { "williamboman/mason-lspconfig.nvim" },
                   { "williamboman/mason.nvim" },
                   { "hrsh7th/cmp-nvim-lsp" },
+                  { "folke/neodev.nvim",                opt = {} },
             },
             config = function()
                   require('mason').setup()
@@ -22,42 +23,28 @@ return {
 
                   local on_attach = function(client, bufnr)
                         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
                         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
                         buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
                         local opts = { noremap = true, silent = true }
 
-                        buf_set_keymap('n', 'gD', '<cmd>Telescope lsp_type_definitions<CR>', opts)
-                        buf_set_keymap('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
                         buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-                        buf_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-                        buf_set_keymap('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
-                        buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-                        buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-                        buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-                        buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<cr>', opts)
                         client.server_capabilities.document_formatting = true
                   end
 
-
-                  local on_attach2 = function(client, bufnr)
+                  local on_attach_qmd = function(client, bufnr)
                         local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
                         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
                         buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
                         local opts = { noremap = true, silent = true }
 
-                        buf_set_keymap('n', 'gD', '<cmd>Telescope lsp_type_definitions<CR>', opts)
-                        buf_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-                        buf_set_keymap('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
-                        buf_set_keymap('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-                        buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-                        buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-                        buf_set_keymap('n', '<leader>ll', '<cmd>lua vim.lsp.codelens.run()<cr>', opts)
+                        -- add qmd-specific keymap here if wanted
+                        -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+
                         client.server_capabilities.document_formatting = true
                   end
+
 
                   local lsp_flags = {
                         allow_incremental_sync = true,
@@ -72,16 +59,20 @@ return {
                               update_in_insert = false,
                         })
                   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
-                        { border = require 'style'.border })
+                        { border = require 'misc.style'.border })
                   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
-                        { border = require 'style'.border })
+                        { border = require 'misc.style'.border })
 
                   local capabilities = vim.lsp.protocol.make_client_capabilities()
                   capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
                   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+                  -- also needs:
+                  -- $home/.config/marksman/config.toml :
+                  -- [core]
+                  -- markdown.file_extensions = ["md", "markdown", "qmd"]
                   lspconfig.marksman.setup {
-                        on_attach = on_attach2,
+                        on_attach = on_attach_qmd,
                         capabilities = capabilities,
                         filetypes = { 'markdown', 'quarto' },
                         root_dir = util.root_pattern(".git", ".marksman.toml", "_quarto.yml"),
@@ -90,12 +81,31 @@ return {
                   -- -- another optional language server for grammar and spelling
                   -- -- <https://github.com/valentjn/ltex-ls>
                   -- lspconfig.ltex.setup {
-                  --   on_attach = on_attach2,
+                  --   on_attach = on_attach_qmd,
                   --   capabilities = capabilities,
                   --   filetypes = { "markdown", "tex", "quarto" },
                   -- }
 
                   lspconfig.r_language_server.setup {
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        flags = lsp_flags,
+                        settings = {
+                              r = {
+                                    lsp = {
+                                          rich_documentation = false
+                                    },
+                              },
+                        },
+                  }
+
+                  lspconfig.emmet_ls.setup {
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        flags = lsp_flags
+                  }
+
+                  lspconfig.cssls.setup {
                         on_attach = on_attach,
                         capabilities = capabilities,
                         flags = lsp_flags
@@ -113,7 +123,7 @@ return {
                         flags = lsp_flags
                   }
 
-                  lspconfig.cssls.setup {
+                  lspconfig.yamlls.setup {
                         on_attach = on_attach,
                         capabilities = capabilities,
                         flags = lsp_flags
@@ -135,10 +145,14 @@ return {
                   end
 
                   local lua_library_files = vim.api.nvim_get_runtime_file("", true)
-                  local resource_path = get_quarto_resource_path()
-                  table.insert(lua_library_files, resource_path .. '/lua-types')
                   local lua_plugin_paths = {}
-                  table.insert(lua_plugin_paths, resource_path .. '/lua-plugin/plugin.lua')
+                  local resource_path = get_quarto_resource_path()
+                  if resource_path == nil then
+                        vim.notify_once("quarto not found, lua library files not loaded")
+                  else
+                        table.insert(lua_library_files, resource_path .. '/lua-types')
+                        table.insert(lua_plugin_paths, resource_path .. '/lua-plugin/plugin.lua')
+                  end
 
                   -- not upadated yet in automatic mason-lspconfig install,
                   -- open mason manually with `<space>vm` and `/` search for lua.
@@ -175,6 +189,15 @@ return {
                         on_attach = on_attach,
                         capabilities = capabilities,
                         flags = lsp_flags,
+                        settings = {
+                              python = {
+                                    analysis = {
+                                          autoSearchPaths = true,
+                                          useLibraryCodeForTypes = false,
+                                          diagnosticMode = 'openFilesOnly',
+                                    },
+                              },
+                        },
                         root_dir = function(fname)
                               return util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml",
                                         "requirements.txt")(fname) or
@@ -195,22 +218,26 @@ return {
                         filetypes = { 'sh', 'bash' }
                   }
 
-                  -- lspconfig.grammarly.setup{
-                  --       on_attach = on_attach,
-                  --       capabilities = capabilities,
-                  --       flags = lsp_flags,
-                  --       filetypes = { 'markdown', 'tex', 'quarto' }
-                  -- }
-                  --
-
                   -- Add additional languages here.
                   -- See `:h lspconfig-all` for the configuration.
                   -- Like e.g. Haskell:
                   -- lspconfig.hls.setup {
-                  --   on_attach = on_attach,
-                  --   capabilities = capabilities,
-                  --   flags = lsp_flags
+                  --       on_attach = on_attach,
+                  --       capabilities = capabilities,
+                  --       flags = lsp_flags
                   -- }
+
+                  lspconfig.rust_analyzer.setup {
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        settings = {
+                              ['rust-analyzer'] = {
+                                    diagnostics = {
+                                          enable = false,
+                                    }
+                              }
+                        }
+                  }
             end
       },
 }

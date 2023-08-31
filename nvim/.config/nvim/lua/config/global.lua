@@ -1,19 +1,19 @@
-vim.g.markdown_fenced_languages = { 'html', 'python', 'bash=sh', 'R=r' }
+-- vim.g.markdown_fenced_languages = { 'html', 'python', 'bash=sh', 'R=r' }
 vim.opt.termguicolors = true
 
 -- more opinionated
-vim.opt.number = true -- show linenumbers
-vim.opt.relativenumber = true
+vim.opt.number = true                           -- show linenumbers
+vim.opt.relativenumber = true                   -- how relative line numbers
 vim.opt.cursorline = true                       -- highlight the current line
 vim.opt.ruler = false                           -- hide the line and column number of the cursor position
 vim.opt.numberwidth = 3                         -- minimal number of columns to use for the line number {default 4}
-vim.opt.updatetime = 150 -- for autocommands and hovers
-vim.opt.mouse = 'a' -- enable mouse
-vim.opt.clipboard:append 'unnamedplus' -- use system clipboard
+vim.opt.mouse = 'a'                             -- enable mouse
+vim.opt.clipboard:append 'unnamedplus'          -- use system clipboard
 vim.opt.backup = false                          -- creates a backup file
 vim.opt.fileencoding = "utf-8"                  -- the encoding written to a file
-vim.o.timeout = true
-vim.opt.timeoutlen = 600                        -- time to wait for a mapped sequence to complete (in milliseconds)
+vim.o.timeout = true                            -- see next
+vim.opt.timeoutlen = 600                        -- time to wait for a mapped sequence to complete (in milliseconds); also for which-key
+vim.opt.updatetime = 150                        -- for autocommands and hovers
 vim.opt.undofile = true                         -- enable persistent undo
 vim.opt.wrap = false                            -- display lines as one long line
 vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
@@ -63,7 +63,7 @@ vim.opt.splitbelow = true
 vim.opt.showtabline = 0
 
 --windowline
--- vim.opt.winbar = '%t'
+-- vim.opt.winbar = '%f'
 
 --don't continue comments automagically
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' })

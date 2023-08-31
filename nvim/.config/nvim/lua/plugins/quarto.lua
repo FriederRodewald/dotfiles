@@ -3,28 +3,28 @@ return {
             'quarto-dev/quarto-nvim',
             dev = false,
             dependencies = {
-                  { 'hrsh7th/nvim-cmp' },
                   {
                         'jmbuhr/otter.nvim',
                         dev = false,
-                        config = function()
-                              require 'otter.config'.setup {
-                                    lsp = {
-                                          hover = {
-                                                border = require 'style'.border
-                                          }
+                        dependencies = {
+                              { 'neovim/nvim-lspconfig' },
+                        },
+                        opts = {
+                              lsp = {
+                                    hover = {
+                                          border = require 'misc.style'.border
                                     }
                               }
-                        end,
+                        }
                   },
 
                   -- optional
                   -- { 'quarto-dev/quarto-vim',
                   --   ft = 'quarto',
                   --   dependencies = { 'vim-pandoc/vim-pandoc-syntax' },
-                  -- note: needs additional syntax highlighting enabled for markdown
-                  --       in `nvim-treesitter`
-                  -- config = function()
+                  --   -- note: needs additional syntax highlighting enabled for markdown
+                  --   --       in `nvim-treesitter`
+                  --   config = function()
                   -- conceal can be tricky because both
                   -- the treesitter highlighting and the
                   -- regex vim syntax files can define conceals
@@ -42,32 +42,14 @@ return {
                   -- -- but allow some types of conceal in math regions:
                   -- -- see `:h g:tex_conceal`
                   -- vim.g['tex_conceal'] = 'gm'
-                  -- end
+                  -- --   end
                   -- },
 
             },
-            config = function()
-                  require 'quarto'.setup {
-                        closePreviewOnExit = true,
-                        lspFeatures = {
-                              enabled = true,
-                              chunks = 'curly', -- 'curly' or 'all'
-                              languages = { 'r', 'python', 'julia', 'bash', 'lua', 'html' },
-                              diagnostics = {
-                                    enabled = true,
-                                    triggers = { "BufWritePost" }
-                              },
-                              completion = {
-                                    enabled = true,
-                              },
-                        },
-                        keymap = {
-                              hover = 'K',
-                              definition = 'gd',
-                              rename = '<leader>lR',
-                              references = 'gr',
-                        },
-                  }
-            end
-      },
+            opts = {
+                  lspFeatures = {
+                        languages = { 'r', 'python', 'julia', 'bash', 'lua', 'html' },
+                  },
+            }
+      }, 
 }

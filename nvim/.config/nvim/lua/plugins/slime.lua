@@ -65,9 +65,9 @@ return {
                   end
 
                   require 'which-key'.register({
-                        ['<leader>cm'] = { mark_terminal, 'mark terminal' },
-                        ['<leader>cs'] = { set_terminal, 'set terminal' },
-                        ['<leader>ct'] = { toggle_slime_tmux_nvim, 'toggle tmux/nvim terminal' },
+                        ['<leader>tm'] = { mark_terminal, 'mark terminal' },
+                        ['<leader>ts'] = { set_terminal, 'set terminal' },
+                        ['<leader>tt'] = { toggle_slime_tmux_nvim, 'toggle tmux/nvim terminal' },
                   })
             end
       },

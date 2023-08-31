@@ -26,36 +26,13 @@ local imap = function(key, effect)
       vim.keymap.set('i', key, effect, { silent = true, noremap = true })
 end
 
--- Resize window using <ctrl> arrow keys
-nmap("<C-Up>", "<cmd>resize +2<CR>")
-nmap("<C-Down>", "<cmd>resize -2<CR>")
-nmap("<C-Left>", "<cmd>vertical resize -2<CR>")
-nmap("<C-Right>", "<cmd>vertical resize +2<CR>")
+--- Basic Shortcuts ---
 
--- send code with ctrl+Enter
--- just like in e.g. RStudio
--- needs kitty (or other terminal) config:
--- map shift+enter send_text all \x1b[13;2u
--- map ctrl+enter send_text all \x1b[13;5u
-nmap('<c-cr>', '<cmd>SlimeSendCurrentLine<cr>')
-nmap('<s-cr>', '<cmd>SlimeSendCurrentLine<cr><Down>')
-imap('<c-cr>', '<esc><cmd>SlimeSendCurrentLine<cr>i')
-imap('<s-cr>', '<esc><cmd>SlimeSendCurrentLine<cr><Down>i')
-
--- keep selection after indent/dedent
-vmap('>', '>gv')
-vmap('<', '<gv')
-
--- remove search highlight on esc
-nmap('<leader>h', '<cmd>noh<cr>')
-
--- find files with telescope
-nmap('<c-p>', "<cmd>Telescope find_files<cr>")
-
--- paste and without overwriting register
-vmap("<leader>p", "\"_dP")
--- delete and without overwriting register
-vmap("<leader>d", "\"_d")
+-- resize window using <ctrl> arrow keys
+nmap("<C-Up>", "<cmd>resize +1<CR>")
+nmap("<C-Down>", "<cmd>resize -3<CR>")
+nmap("<C-Left>", "<cmd>vertical resize -3<CR>")
+nmap("<C-Right>", "<cmd>vertical resize +1<CR>")
 
 -- center after search and jumps
 nmap('n', "nzz")
@@ -69,20 +46,29 @@ imap("jk", "<ESC>")
 nmap('<s-h>', '<cmd>bprevious<cr>')
 nmap('<s-l>', '<cmd>bnext<cr>')
 
+--- Specific to Language ---
+
+-- send code with ctrl+Enter just like in e.g. RStudio
+-- needs terminal config:
+-- map shift+enter send_text all \x1b[13;2u
+-- map ctrl+enter send_text all \x1b[13;5u
+nmap('<c-cr>', '<Plug>SlimeParagraphSend')
+nmap('<s-cr>', '<cmd>SlimeSendCurrentLine<cr><Down>')
+imap('<c-cr>', '<esc><Plug>SlimeParagraphSend')
+imap('<s-cr>', '<esc><cmd>SlimeSendCurrentLine<cr><Down>i')
+vmap('<cr>', '<Plug>SlimeRegionSend')
+
+imap('<m-a>', ' <- ') -- assign operator
+imap('<m-p>', ' |> ') -- pipe operator
+
+nmap('n', 'nzzzv') -- center search
+nmap('gN', 'Nzzzv') -- center search
+nmap('cor', 'o```{r}<cr>```<esc>O') -- insert R code chunk
+nmap('cor', 'o```{python}<cr>```<esc>O') -- insert Python code chunk
+
 --show kepbindings with whichkey
---add your own here if you want them to
---show up in the popup as well
 wk.register(
       {
-            c = {
-                  name = 'code',
-                  c = { ':SlimeConfig<cr>', 'slime config' },
-                  n = { ':split term://$SHELL<cr>', 'new terminal' },
-                  r = { ':split term://R<cr>', 'new R terminal' },
-                  p = { ':split term://python<cr>', 'new python terminal' },
-                  i = { ':split term://ipython<cr>', 'new ipython terminal' },
-                  -- j = { ':split term://julia<cr>', 'new julia terminal' },
-            },
             v = {
                   name = 'vim',
                   l = { ':Lazy<cr>', 'Lazy' },
@@ -92,45 +78,27 @@ wk.register(
             },
             l = {
                   name = 'language/lsp',
-                  r    = { '<cmd>Telescope lsp_references<cr>', 'references' },
-                  R    = { vim.lsp.buf.rename, 'rename' },
-                  D    = { vim.lsp.buf.type_definition, 'type definition' },
-                  a    = { vim.lsp.buf.code_action, 'coda action' },
-                  e    = { vim.diagnostic.open_float, 'diagnostics' },
+                  i    = { vim.diagnostic.open_float, 'diagnostics info' },
                   f    = { vim.lsp.buf.format, 'format' },
-                  o    = { ':SymbolsOutline<cr>', 'outline' },
+                  o    = { ':SymbolsOutline<cr>', 'outline overview' },
                   d    = {
-                        name = 'diagnostics',
+                        name = 'toggle diagnostics',
                         d = { vim.diagnostic.disable, 'disable' },
                         e = { vim.diagnostic.enable, 'enable' },
                   },
-                  g    = { ':Neogen<cr>', 'neogen docstring' },
-                  s    = { ':ls!<cr>', 'list all buffers' },
                   c    = {
-                        name = 'disable/enable cmp',
+                        name = 'toggle cmp',
                         d = { ':lua require(\'cmp\').setup.buffer { enabled = false }<cr>',
                               'disable cmp for current buffer' },
                         e = { ':lua require(\'cmp\').setup.buffer { enabled = true }<cr>',
                               'enable cmp for current buffer' },
                   },
             },
-            o = {
-                  name = 'otter',
-                  a = { require 'otter'.dev_setup, 'activate' },
-            },
             q = {
                   name = 'quarto',
-                  a = { ":QuartoActivate<cr>", 'activate' },
                   p = { ":lua require'quarto'.quartoPreview()<cr>", 'preview' },
                   q = { ":lua require'quarto'.quartoClosePreview()<cr>", 'close' },
                   h = { ":QuartoHelp ", 'help' },
-                  r = {
-                        name = 'run',
-                        r = { ':QuartoSendAbove<cr>', 'to cursor' },
-                        a = { ':QuartoSendAll<cr>', 'all' },
-                  },
-                  e = { ":lua require'otter'.export()<cr>", 'export' },
-                  E = { ":lua require'otter'.export(true)<cr>", 'export overwrite' },
             },
             f = {
                   name = 'find (telescope)',
@@ -148,21 +116,6 @@ wk.register(
                   q = { "<cmd>Telescope quickfix<cr>", "quickfix" },
                   l = { "<cmd>Telescope loclist<cr>", "loclist" },
                   j = { "<cmd>Telescope jumplist<cr>", "marks" },
-                  p = { "project" },
-            },
-            h = {
-                  name = 'help/debug/conceal',
-                  c = {
-                        name = 'conceal',
-                        h = { ':set conceallevel=1<cr>', 'hide/conceal' },
-                        s = { ':set conceallevel=0<cr>', 'show/unconceal' },
-                  },
-                  t = {
-                        name = 'treesitter',
-                        t = { vim.treesitter.inspect_tree, 'show tree' },
-                        c = { ':=vim.treesitter.get_captures_at_cursor()<cr>', 'show capture' },
-                        n = { ':=vim.treesitter.get_node():type()<cr>', 'show node' },
-                  }
             },
             s = {
                   name = "spellcheck",
@@ -170,79 +123,20 @@ wk.register(
                   ['/'] = { '<cmd>setlocal spell!<cr>', 'spellcheck' },
                   n = { ']s', 'next' },
                   p = { '[s', 'previous' },
-                  g = { 'zg', 'good' },
                   r = { 'zg', 'rigth' },
                   w = { 'zw', 'wrong' },
-                  b = { 'zw', 'bad' },
-                  ['?'] = { '<cmd>Telescope spell_suggest<cr>', 'suggest' },
             },
             g = {
                   name = "git",
-                  c = { ":GitConflictRefresh<cr>", 'conflict' },
                   g = { ":Neogit<cr>", "neogit" },
-                  s = { ":Gitsigns<cr>", "gitsigns" },
-                  pl = { ":Octo pr list<cr>", "gh pr list" },
-                  pr = { ":Octo review start<cr>", "gh pr review" },
-                  wc = { ":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>", "worktree create" },
-                  ws = { ":lua require('telescope').extensions.git_worktree.git_worktrees()<cr>", "worktree switch" },
                   d = {
                         name = 'diff',
                         o = { ':DiffviewOpen<cr>', 'open' },
                         c = { ':DiffviewClose<cr>', 'close' },
                   }
             },
-            w = {
-                  name = 'write',
-                  w = { ":w<cr>", "write" },
-            },
-            x = {
-                  name = 'execute',
-                  x = { ':w<cr>:source %<cr>', 'file' }
-            }
+            h = { '<cmd>noh<cr>', 'rm search' },
+            x = { ':w<cr>:source %<cr>', 'source file' },
+            c = { '<cmd>:normal gcc<cr>', '(un)comment' },
       }, { mode = 'n', prefix = '<leader>' }
 )
-
--- normal mode
-wk.register({
-      ['<c-LeftMouse>'] = { '<cmd>lua vim.lsp.buf.definition()<CR>', 'go to definition' },
-      ["<c-q>"]         = { '<cmd>q<cr>', 'close buffer' },
-      ['<esc>']         = { '<cmd>noh<cr>', 'remove search highlight' },
-      ['n']             = { 'nzzzv', 'center search' },
-      ['gN']            = { 'Nzzzv', 'center search' },
-      ['gl']            = { '<c-]>', 'open help link' },
-      ['gf']            = { ':e <cfile><CR>', 'edit file' },
-      ['coo']           = { 'o#%%<cr>', 'new code chunk below' },
-      ['cOo']           = { 'O#%%<cr>', 'new code chunk above' },
-      ['cob']           = { 'o```{bash}<cr>```<esc>O', "bash code chunk" },
-      ['cor']           = { 'o```{r}<cr>```<esc>O', "r code chunk" },
-      ['cop']           = { 'o```{python}<cr>```<esc>O', "python code chunk" },
-      ['coj']           = { 'o```{julia}<cr>```<esc>O', "julia code chunk" },
-      ['col']           = { 'o```{julia}<cr>```<esc>O', "julia code chunk" },
-      -- ['<m-i>']         = { 'o```{r}<cr>```<esc>O', "r code chunk" },
-      -- ['<cm-i>']        = { 'o```{python}<cr>```<esc>O', "r code chunk" },
-      -- ['<m-I>']         = { 'o```{python}<cr>```<esc>O', "r code chunk" },
-}, { mode = 'n' })
-
-
--- visual mode
-wk.register({
-      ['<cr>'] = { '<Plug>SlimeRegionSend', 'run code region' },
-      ['<M-j>'] = { ":m'>+<cr>`<my`>mzgv`yo`z", 'move line down' },
-      ['<M-k>'] = { ":m'<-2<cr>`>my`<mzgv`yo`z", 'move line up' },
-      ['.'] = { ':norm .<cr>', 'repat last normal mode command' },
-      -- ['q'] = { ':norm @q<cr>', 'repat q macro' },
-}, { mode = 'v' })
-
-wk.register({
-      ['<leader>'] = { '<Plug>SlimeRegionSend', 'run code region' },
-      ['p'] = { '"_dP', 'replace without overwriting reg' },
-}, { mode = 'v', prefix = "<leader>" })
-
-wk.register({
-      -- ['<c-e>'] = { "<esc>:FeMaco<cr>i", "edit code" },
-      ['<m-->'] = { ' <- ', "assign" },
-      ['<m-m>'] = { ' |>', "pipe" },
-      -- ['<m-i>'] = { '```{r}<cr>```<esc>O', "r code chunk" },
-      -- ['<cm-i>'] = { '<esc>o```{python}<cr>```<esc>O', "r code chunk" },
-      -- ['<m-I>'] = { '<esc>o```{python}<cr>```<esc>O', "r code chunk" },
-}, { mode = 'i' })
