@@ -78,3 +78,4 @@ message("Welcome to R®️ my friend, everything is ready to be served :D")
 options(repos=c(CRAN="https://packages.othr.de/cran/"))
 
 httpgd::hgd()
+httpgd::hgd_browse()
