@@ -63,7 +63,7 @@ imap('<m-p>', ' |> ') -- pipe operator
 
 nmap('n', 'nzzzv') -- center search
 nmap('gN', 'Nzzzv') -- center search
-nmap('ccr', 'o```{r}<cr>```<esc>O') -- insert R code chunk
+nmap('ccr', 'o```{r}<cr><cr><cr><cr>```<esc>kk') -- insert R code chunk
 nmap('ccp', 'o```{python}<cr>```<esc>O') -- insert Python code chunk
 
 --show kepbindings with whichkey
