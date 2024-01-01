@@ -13,9 +13,12 @@ return {
                               lsp = {
                                     hover = {
                                           border = require 'misc.style'.border
-                                    }
-                              }
-                        }
+                                    },
+                              },
+                              buffers = {
+                                    set_filetype = true,
+                              },
+                        },
                   },
 
                   -- optional

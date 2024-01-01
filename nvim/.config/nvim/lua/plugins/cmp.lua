@@ -102,7 +102,7 @@ return {
                                     end
                               end, { "i", "s" }),
                         },
-                        autocomplete = true,
+                        autocomplete = false,
                         formatting = {
                               format = lspkind.cmp_format {
                                     with_text = true,
