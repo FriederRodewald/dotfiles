@@ -35,6 +35,7 @@ nmap('<s-l>', '<cmd>bnext<cr>')
 
 -- miscellaneous mappings
 nmap('U', '<c-r>') -- remap redo
+nmap('<leader>x', ':Bdelete<cr>') -- close the current buffer tab
 
 
 --- Specific to Language ---
