@@ -27,7 +27,7 @@ nmap('<c-d>', '<c-d>zz')
 nmap('<c-u>', '<c-u>zz')
 
 -- Press 'jk' fast to enter normal mode.
-imap("jk", "<ESC>")
+-- imap("jk", "<ESC>")
 
 -- Move between splits and tabs.
 nmap('<s-h>', '<cmd>bprevious<cr>')
@@ -36,7 +36,6 @@ nmap('<s-l>', '<cmd>bnext<cr>')
 -- miscellaneous mappings
 nmap('U', '<c-r>') -- remap redo
 nmap('<leader>x', ':Bdelete<cr>') -- close the current buffer tab
-
 
 --- Specific to Language ---
 
@@ -97,6 +96,7 @@ wk.register(
             f = {
                   name = 'find (telescope)',
                   f = { '<cmd>Telescope find_files<cr>', 'files' },
+                  t = { '<cmd>Telescope file_browser<cr>', 'tree/browser' },
                   h = { '<cmd>Telescope help_tags<cr>', 'help' },
                   k = { '<cmd>Telescope keymaps<cr>', 'keymaps' },
                   g = { "<cmd>Telescope live_grep<cr>", "grep" },

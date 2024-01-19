@@ -31,9 +31,9 @@ return {
                               },
                               mappings = {
                                     i = {
-                                          ['<C-u>'] = false,
-                                          ['<C-d>'] = false,
-                                          ["<esc>"] = actions.close,
+                                          -- ['<C-u>'] = false,
+                                          -- ['<C-d>'] = false,
+                                          -- ["<esc>"] = actions.close,
                                           ["<c-j>"] = actions.move_selection_next,
                                           ["<c-k>"] = actions.move_selection_previous,
                                     }
