@@ -50,7 +50,7 @@ return {
             config = function()
                   local cmp = require 'cmp'
                   local luasnip = require 'luasnip'
-                  local lspkind = require "lspkind"
+                  local lspkind = require 'lspkind'
                   lspkind.init()
 
                   local has_words_before = function()
@@ -66,8 +66,8 @@ return {
                               end,
                         },
                         mapping = {
-                              ['<C-f>'] = cmp.mapping.scroll_docs(-4),
-                              ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                              -- ['<C-f>'] = cmp.mapping.scroll_docs(-4),
+                              -- ['<C-d>'] = cmp.mapping.scroll_docs(4),
                               -- ['<C-n>'] = cmp.mapping(function(fallback)
                               --       if luasnip.expand_or_jumpable() then
                               --             luasnip.expand_or_jump()
@@ -83,11 +83,10 @@ return {
                               -- end, { "i", "s" }),
                               ['<C-e>'] = cmp.mapping.abort(),
                               ['<CR>'] = cmp.mapping.confirm({
-                                    select = true,
+                                    select = false,
                               }),
                               ["<Tab>"] = cmp.mapping(function(fallback)
-                                    if cmp.visible() then
-                                          cmp.select_next_item()
+                                    if cmp.visible() then cmp.select_next_item()
                                     elseif has_words_before() then
                                           cmp.complete()
                                     else
@@ -102,7 +101,7 @@ return {
                                     end
                               end, { "i", "s" }),
                         },
-                        autocomplete = false,
+                        autocomplete = true,
                         formatting = {
                               format = lspkind.cmp_format {
                                     with_text = true,
