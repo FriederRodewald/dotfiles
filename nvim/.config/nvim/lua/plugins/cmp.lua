@@ -66,8 +66,8 @@ return {
                               end,
                         },
                         mapping = {
-                              -- ['<C-f>'] = cmp.mapping.scroll_docs(-4),
-                              -- ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                              ['<C-f>'] = cmp.mapping.scroll_docs(-4),
+                              ['<C-b>'] = cmp.mapping.scroll_docs(4),
                               -- ['<C-n>'] = cmp.mapping(function(fallback)
                               --       if luasnip.expand_or_jumpable() then
                               --             luasnip.expand_or_jump()
