@@ -1,19 +1,6 @@
 local wk = require("which-key")
 
-P = function(x)
-      print(vim.inspect(x))
-      return (x)
-end
-
-RELOAD = function(...)
-      return require 'plenary.reload'.reload_module(...)
-end
-
-R = function(name)
-      RELOAD(name)
-      return require(name)
-end
-
+-- Define key mappings for normal, visual, and insert modes.
 local nmap = function(key, effect)
       vim.keymap.set('n', key, effect, { silent = true, noremap = true })
 end
@@ -28,47 +15,46 @@ end
 
 --- Basic Shortcuts ---
 
--- resize window using <ctrl> arrow keys
+-- Resize window using <Ctrl> + arrow keys.
 nmap("<C-Up>", "<cmd>resize +1<CR>")
 nmap("<C-Down>", "<cmd>resize -3<CR>")
 nmap("<C-Left>", "<cmd>vertical resize -3<CR>")
 nmap("<C-Right>", "<cmd>vertical resize +1<CR>")
 
--- center after search and jumps
+-- Center after search and jumps.
 nmap('n', "nzz")
 nmap('<c-d>', '<c-d>zz')
 nmap('<c-u>', '<c-u>zz')
 
--- Press jk fast to enter
+-- Press 'jk' fast to enter normal mode.
 imap("jk", "<ESC>")
 
--- move between splits and tabs
+-- Move between splits and tabs.
 nmap('<s-h>', '<cmd>bprevious<cr>')
 nmap('<s-l>', '<cmd>bnext<cr>')
 
+-- miscellaneous mappings
+nmap('U', '<c-r>') -- remap redo
+
+
 --- Specific to Language ---
 
--- send code with ctrl+Enter just like in e.g. RStudio
--- needs terminal config:
--- map shift+enter send_text all \x1b[13;2u
--- map ctrl+enter send_text all \x1b[13;5u
+-- Send code with Ctrl+Enter just like in RStudio.
 nmap('<c-cr>', '<Plug>SlimeParagraphSend')
 nmap('<s-cr>', '<cmd>SlimeSendCurrentLine<cr><Down>')
 imap('<c-cr>', '<esc><Plug>SlimeParagraphSend')
 imap('<s-cr>', '<esc><cmd>SlimeSendCurrentLine<cr><Down>i')
 vmap('<cr>', '<Plug>SlimeRegionSend')
 
-imap('<m-a>', ' <- ') -- assign operator
-imap('<m-p>', ' |> ') -- pipe operator
 
-nmap('n', 'nzzzv') -- center search
-nmap('gN', 'Nzzzv') -- center search
-nmap('ccr', 'o```{r}<cr><cr><cr><cr>```<esc>kk') -- insert R code chunk
-nmap('ccp', 'o```{python}<cr>```<esc>O') -- insert Python code chunk
+--- WhickKey Register ---
 
 --show kepbindings with whichkey
+
+-- which-key configuration for defining and displaying key mappings
 wk.register(
       {
+            -- Leader key mappings for vim maintainance
             v = {
                   name = 'vim',
                   l = { ':Lazy<cr>', 'Lazy' },
@@ -76,6 +62,8 @@ wk.register(
                   s = { ':e $MYVIMRC | :cd %:p:h | split . | wincmd k<cr>', 'Settings' },
                   h = { ':execute "h " . expand("<cword>")<cr>', 'help' }
             },
+
+            -- Leader key mappings for language-related actions
             l = {
                   name = 'language/lsp',
                   i    = { vim.diagnostic.open_float, 'diagnostics info' },
@@ -95,12 +83,16 @@ wk.register(
                   },
                   t    = { ':TroubleToggle<cr>', 'toggle trouble' },
             },
+
+            -- Leader key mappings for Quarto-related actions
             q = {
                   name = 'quarto',
                   p = { ":lua require'quarto'.quartoPreview()<cr>", 'preview' },
                   q = { ":lua require'quarto'.quartoClosePreview()<cr>", 'close' },
                   h = { ":QuartoHelp ", 'help' },
             },
+
+            -- Leader key mappings for finding actions using Telescope
             f = {
                   name = 'find (telescope)',
                   f = { '<cmd>Telescope find_files<cr>', 'files' },
@@ -115,6 +107,8 @@ wk.register(
                   l = { "<cmd>Telescope loclist<cr>", "loclist" },
                   j = { "<cmd>Telescope jumplist<cr>", "marks" },
             },
+
+            -- Leader key mappings for navigating using LSP and Telescope
             n = {
                   name = 'navigate (lsp/telescope)',
                   s = { "<cmd>Telescope lsp_document_symbols<cr>", "symbols" },
@@ -125,15 +119,19 @@ wk.register(
                   i = { '<cmd>Telescope lsp_implementations<cr>', 'implementations' },
                   R = { '<cmd>Telescope lsp_references<cr>', 'references' },
             },
+
+            -- Leader key mappings for spellchecking
             s = {
                   name = "spellcheck",
                   s = { "<cmd>Telescope spell_suggest<cr>", "spelling" },
                   ['/'] = { '<cmd>setlocal spell!<cr>', 'spellcheck' },
                   n = { ']s', 'next' },
                   p = { '[s', 'previous' },
-                  r = { 'zg', 'rigth' },
+                  r = { 'zg', 'right' },
                   w = { 'zw', 'wrong' },
             },
+
+            -- Leader key mappings for Git-related actions
             g = {
                   name = "git",
                   g = { ":Neogit<cr>", "neogit" },
@@ -143,8 +141,21 @@ wk.register(
                         c = { ':DiffviewClose<cr>', 'close' },
                   }
             },
-            h = { '<cmd>noh<cr>', 'rm search' },
-            x = { ':w<cr>:source %<cr>', 'source file' },
+
+            -- Leader key mappings for doing something
+            d = {
+                  name = "do something",
+                  r = { 'o```{r}<cr><cr><cr><cr>```<esc>kk', 'insert R code chunk' },
+                  p = { 'o```{python}<cr><cr><cr><cr>```<esc>kk', 'insert Python code chunk' },
+            },
+
+            -- Leader key mappings for hiding search highlighting
+            h = { '<cmd>noh<cr>', 'remove search' },
+
+            -- Leader key mappings for commenting/uncommenting
             c = { '<cmd>:normal gcc<cr>', '(un)comment' },
-      }, { mode = 'n', prefix = '<leader>' }
+      },
+
+      -- Specify normal mode and leader key
+      { mode = {'n', 'v'}, prefix = '<leader>' } 
 )
