@@ -4,8 +4,10 @@ return {
             event = "VeryLazy",
             opts = {
                   modes = {
-                        search = {
-                              enabled = false,
+                        char = {
+                              highlight = {
+                                    backdrop = false,
+                              },
                         },
                   },
             },
