@@ -27,7 +27,7 @@ nmap('<c-d>', '<c-d>zz')
 nmap('<c-u>', '<c-u>zz')
 
 -- Press 'jk' fast to enter normal mode.
--- imap("jk", "<ESC>")
+imap("jk", "<ESC>")
 
 -- Move between splits and tabs.
 nmap('<s-h>', '<cmd>bprevious<cr>')
