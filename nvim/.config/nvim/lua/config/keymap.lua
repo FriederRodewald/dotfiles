@@ -133,15 +133,7 @@ wk.register(
             },
 
             -- Leader key mappings for Git-related actions
-            g = {
-                  name = "git",
-                  g = { ":Neogit<cr>", "neogit" },
-                  d = {
-                        name = 'diff',
-                        o = { ':DiffviewOpen<cr>', 'open' },
-                        c = { ':DiffviewClose<cr>', 'close' },
-                  }
-            },
+            g = { ":LazyGit<cr>", "lazygit" },
 
             -- Leader key mappings for doing something
             d = {
