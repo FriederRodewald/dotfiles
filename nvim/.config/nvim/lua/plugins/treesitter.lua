@@ -10,6 +10,7 @@ return {
                               'r', 'python', 'markdown', 'markdown_inline',
                               'julia', 'bash', 'yaml', 'lua', 'vim',
                               'query', 'vimdoc', 'latex', 'html', 'css',
+                              'php',
                         },
                         highlight = {
                               enable = true,
