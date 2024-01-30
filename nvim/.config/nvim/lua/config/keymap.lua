@@ -82,7 +82,7 @@ wk.register(
                               'enable cmp for current buffer' },
                   },
                   t    = { ':TroubleToggle<cr>', 'toggle trouble' },
-                  m    = { 'vip:!pandoc -t markdown-simple_tables<cr>', 'format md table' },
+                  m    = { 'vip:!column -t -s \'|\' -o \'|\'<cr>', 'format md table' },
             },
 
             -- Leader key mappings for Quarto-related actions
