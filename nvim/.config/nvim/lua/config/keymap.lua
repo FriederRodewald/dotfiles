@@ -96,7 +96,7 @@ wk.register(
             f = {
                   name = 'find (telescope)',
                   f = { '<cmd>Telescope find_files<cr>', 'files' },
-                  t = { '<cmd>Telescope file_browser<cr>', 'tree/browser' },
+                  t = { '<cmd>Telescope file_browser hidden=true<cr>', 'tree/browser' },
                   h = { '<cmd>Telescope help_tags<cr>', 'help' },
                   k = { '<cmd>Telescope keymaps<cr>', 'keymaps' },
                   g = { "<cmd>Telescope live_grep<cr>", "grep" },
