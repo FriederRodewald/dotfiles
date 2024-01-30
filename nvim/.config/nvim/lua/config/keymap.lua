@@ -67,7 +67,7 @@ wk.register(
             l = {
                   name = 'language/lsp',
                   i    = { vim.diagnostic.open_float, 'diagnostics info' },
-                  f    = { vim.lsp.buf.format, 'format' },
+                  f    = { vim.lsp.buf.format, 'format code' },
                   o    = { ':SymbolsOutline<cr>', 'outline overview' },
                   d    = {
                         name = 'toggle diagnostics',
@@ -82,6 +82,7 @@ wk.register(
                               'enable cmp for current buffer' },
                   },
                   t    = { ':TroubleToggle<cr>', 'toggle trouble' },
+                  m    = { 'vip:!pandoc -t markdown-simple_tables<cr>', 'format md table' },
             },
 
             -- Leader key mappings for Quarto-related actions
