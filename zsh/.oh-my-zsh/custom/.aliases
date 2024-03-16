@@ -5,5 +5,4 @@ alias vi="nvim"
 alias r="radian"
 alias o="gnome-open"
 alias 2rm="cd ~/Nextcloud/reMarkable && rmapi mput . && cd -"  
-alias x="gnome-extensions disable smart-auto-move@khimaros.com"  
-alias e="gnome-extensions enable smart-auto-move@khimaros.com"  
+alias lg=lazygit
