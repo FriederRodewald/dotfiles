@@ -4,8 +4,9 @@ return {
     opts = {
       -- load the default settings
       defaults = {
-        autocmds = true, -- lazyvim.config.autocmds
-        keymaps = true, -- lazyvim.config.keymaps
+        autocmds = false, -- lazyvim.config.autocmds
+        keymaps = false, -- lazyvim.config.keymaps
+        options = false, -- lazyvim.config.options
       },
     },
   },
