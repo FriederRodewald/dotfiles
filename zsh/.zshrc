@@ -103,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/dotfiles/zsh/.oh-my-zsh/custom/.aliases
 
-alias nvim-lazy="NVIM_APPNAME=lazyvim nvim"
+alias lv="NVIM_APPNAME=lazyvim nvim"
 
 function nvims() {
   items=("default" "lazyvim")
