@@ -2,11 +2,10 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- load the default settings
       defaults = {
-        autocmds = false, -- lazyvim.config.autocmds
-        keymaps = false, -- lazyvim.config.keymaps
-        options = false, -- lazyvim.config.options
+        autocmds = true, -- lazyvim.config.autocmds
+        keymaps = true, -- lazyvim.config.keymaps
+        options = true, -- lazyvim.config.options
       },
     },
   },
