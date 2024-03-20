@@ -22,9 +22,30 @@ end
 
 -- normal mode
 for _, key in pairs({
-  "<S-h>", -- top instead of bprev
-  "<S-l>", -- lower instead of bnext
-  "<leader>bb", -- switch to other buffer, using: <leader>`
+  "<C-h>", -- move to window using the <ctrl> hjkl keys
+  "<C-j>",
+  "<C-k>",
+  "<C-l>",
+  "<C-Up>", -- resize window using <ctrl> arrow keys
+  "<C-Down>",
+  "<C-Left>",
+  "<C-Right>",
+  "<S-h>", -- prevBuffer
+  "<S-l>", -- nextBuffer
+  "[b", -- prevBuffer
+  "]b", -- nextBuffer
+  "<leader>bb", -- Switch to Other Buffer
+  "<leader>`", -- Switch to Other Buffer
+  "<leader>ur", -- Clear search, diff update and redraw
+  "<leader>K", -- keywordprg
+  "<leader>l", -- Lazy (XXX)
+  "<leader>fn", -- New File (XXX)
+  "<leader>xl", -- Location List (XXX)
+  "<leader>xq", -- Quickfix List (XXX)
+  "[q", -- Previous Quickfix
+  "]q", -- Next Quickfix
+  "<leader>cf", -- code format (XXX)
+
   "<leader>wd", -- delete window, <C-W>c, now just quit
   "<leader>ww", -- other window, <C-W>p, not necessary
   "<leader>w-", -- duplicate split window <C-W>s
@@ -34,24 +55,35 @@ for _, key in pairs({
   vim.keymap.del("n", key)
 end
 
--- terminal mode
+-- insert mode
 for _, key in pairs({
-  "<c-h>", -- harpoon consistency
-  "<c-j>",
-  "<c-k>",
-  "<c-l>",
-  -- "esc esc" causes delay when using zsh vi mode:
-  -- "esc c" is translated into "alt c" and invokes fzf directories
-  "<esc><esc>",
+  ".", -- undo break-points
+  ",",
+  ";",
 }) do
-  vim.keymap.del("t", key)
+  vim.keymap.del("i", key)
 end
 
 --------------------------------------------------------------------------
 -- Change mappings
 --------------------------------------------------------------------------
 
+-- move lines
+map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+
 -- leader q now available:
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
 -- leader w now available. Lazy uses ctrl-s
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
+
+--------------------------------------------------------------------------
+-- Add mappings
+--------------------------------------------------------------------------
+
+-- remap undo
+map("n", "U", "<C-r>", { desc = "[U]ndo" })
