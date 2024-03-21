@@ -45,12 +45,21 @@ for _, key in pairs({
   "[q", -- Previous Quickfix
   "]q", -- Next Quickfix
   "<leader>cf", -- code format (XXX)
-
-  "<leader>wd", -- delete window, <C-W>c, now just quit
-  "<leader>ww", -- other window, <C-W>p, not necessary
-  "<leader>w-", -- duplicate split window <C-W>s
-  "<leader>w|", -- duplicate split window <C-W>v
-  "<leader>qq", -- quit all
+  "<leader>qq", -- quit
+  "<c-/>", -- floating terminal
+  "<c-_>", -- floating terminal
+  "<leader>ww", -- windows
+  "<leader>wd",
+  "<leader>w-",
+  "<leader>w|",
+  "<leader>-",
+  "<leader>|",
+  "<leader><tab>l", --tabs
+  "<leader><tab>f",
+  "<leader><tab><tab>",
+  "<leader><tab>]",
+  "<leader><tab>d",
+  "<leader><tab>[",
 }) do
   vim.keymap.del("n", key)
 end
@@ -62,6 +71,19 @@ for _, key in pairs({
   ";",
 }) do
   vim.keymap.del("i", key)
+end
+
+-- terminal mode
+for _, key in pairs({
+  "<esc><esc>", -- terminal mappings
+  "<C-h>",
+  "<C-j>",
+  "<C-k>",
+  "<C-l>",
+  "<C-/>",
+  "<c-_>",
+}) do
+  vim.keymap.del("t", key)
 end
 
 --------------------------------------------------------------------------
@@ -86,4 +108,30 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 --------------------------------------------------------------------------
 
 -- remap undo
-map("n", "U", "<C-r>", { desc = "[U]ndo" })
+map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
+
+-- quarto related actions
+-- map("n", "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", "Quarto Preview")
+-- map("n", "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", "Quarto Close Preview")
+-- map("n", "<leader>qh", ":QuartoHelp", "Quarto Help")
+
+-- toggle input suggestion
+local Util = require("lazyvim.util")
+
+map("n", "<leader>u<tab>", function()
+  vim.g.input_suggestion = vim.g.input_suggestion == false
+  if vim.g.input_suggestion then
+    Util.warn("Enabled Input Suggestion", { title = "Input Suggestion (buffer)" })
+  else
+    Util.info("Disabled Input Suggestion", { title = "Input Suggestion (buffer)" })
+  end
+  require("cmp").setup.buffer({
+    enabled = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+        return false
+      else
+        return vim.g.input_suggestion
+      end
+    end,
+  })
+end, { desc = "Toggle Input Suggestion" })
