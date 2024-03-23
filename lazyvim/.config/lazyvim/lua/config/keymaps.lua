@@ -44,7 +44,6 @@ for _, key in pairs({
   "<leader>xq", -- Quickfix List (XXX)
   "[q", -- Previous Quickfix
   "]q", -- Next Quickfix
-  "<leader>cf", -- code format (XXX)
   "<leader>qq", -- quit
   "<c-/>", -- floating terminal
   "<c-_>", -- floating terminal
@@ -98,9 +97,9 @@ map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
 map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- leader q now available:
+-- close file
 map("n", "<leader>q", "<cmd>q<cr>", { desc = "[Q]uit" })
--- leader w now available. Lazy uses ctrl-s
+-- write file
 map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 
 --------------------------------------------------------------------------
