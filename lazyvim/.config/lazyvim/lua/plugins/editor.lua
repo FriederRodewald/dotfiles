@@ -1,7 +1,9 @@
 local Util = require("lazyvim.util")
 
 return {
+
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+
     {
         "folke/flash.nvim",
         opts = {
@@ -10,12 +12,14 @@ return {
             },
         },
     },
+
     {
         "lewis6991/gitsigns.nvim",
         opts = {
             on_attach = function() end,
         },
     },
+
     {
         "RRethy/vim-illuminate",
         opts = {
@@ -23,7 +27,9 @@ return {
             min_count_to_highlight = 2,
         },
     },
+
     { "folke/todo-comments.nvim", enabled = false },
+
     {
         "nvim-telescope/telescope.nvim",
         keys = {
@@ -59,19 +65,14 @@ return {
 
             -- search
             { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
-            -- { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
             { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
             { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-            -- { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
             { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
             { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
             { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-            -- { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
             { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
             { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-            -- { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
             { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-            -- { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
             {
                 "<leader>uC",
                 Util.telescope("colorscheme", { enable_preview = true }),
@@ -96,11 +97,13 @@ return {
                 desc = "Goto Symbol (Workspace)",
             },
         },
+
         dependencies = {
             {
                 "nvim-telescope/telescope-file-browser.nvim",
             },
         },
+
         opts = {
             extensions = {
                 file_browser = {
@@ -110,6 +113,7 @@ return {
                 },
             },
         },
+
         config = function(_, opts)
             local telescope = require("telescope")
             telescope.setup(opts)

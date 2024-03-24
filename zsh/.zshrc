@@ -103,6 +103,7 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/dotfiles/zsh/.oh-my-zsh/custom/.aliases
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
 alias lv="NVIM_APPNAME=lazyvim nvim"
 
 function nvims() {

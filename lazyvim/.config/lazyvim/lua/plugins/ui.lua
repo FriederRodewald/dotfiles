@@ -1,6 +1,7 @@
 local Util = require("lazyvim.util")
 
 return {
+
     {
         "akinsho/bufferline.nvim",
         enabled = false,
@@ -11,6 +12,7 @@ return {
         --     show_buffer_close_icons = false,
         --   },
     },
+
     {
         "rcarriga/nvim-notify",
         opts = {
@@ -18,6 +20,12 @@ return {
             render = "compact",
         },
     },
+
+    {
+        "stevearc/dressing.nvim",
+        enabled = false,
+    },
+
     {
         "nvim-lualine/lualine.nvim",
         opts = function()
@@ -35,7 +43,9 @@ return {
                     disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
                 },
                 sections = {
+
                     lualine_a = { "mode" },
+
                     lualine_b = { "branch" },
 
                     lualine_c = {
@@ -45,24 +55,24 @@ return {
                     },
 
                     lualine_x = {
-            -- stylua: ignore
-            {
-              function() return require("noice").api.status.command.get() end,
-              cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
-              color = Util.ui.fg("Statement"),
-            },
-            -- stylua: ignore
-            {
-              function() return require("noice").api.status.mode.get() end,
-              cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-              color = Util.ui.fg("Constant"),
-            },
-            -- stylua: ignore
-            {
-              function() return "  " .. require("dap").status() end,
-              cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
-              color = Util.ui.fg("Debug"),
-            },
+                        -- stylua: ignore
+                        {
+                            function() return require("noice").api.status.command.get() end,
+                            cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+                            color = Util.ui.fg("Statement"),
+                        },
+                        -- stylua: ignore
+                        {
+                            function() return require("noice").api.status.mode.get() end,
+                            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+                            color = Util.ui.fg("Constant"),
+                        },
+                        -- stylua: ignore
+                        {
+                            function() return "  " .. require("dap").status() end,
+                            cond = function () return package.loaded["dap"] and require("dap").status() ~= "" end,
+                            color = Util.ui.fg("Debug"),
+                        },
                         {
                             "diagnostics",
                             symbols = {
@@ -73,6 +83,7 @@ return {
                             },
                         },
                     },
+
                     lualine_y = {
                         {
                             "diff",
@@ -94,8 +105,7 @@ return {
                             end,
                         },
                     },
-                    -- lualine_y = {
-                    -- },
+
                     lualine_z = {
                         { "progress", separator = " ", padding = { left = 1, right = 0 } },
                         { "location", padding = { left = 0, right = 1 } },
@@ -105,6 +115,7 @@ return {
             }
         end,
     },
+
     {
         "folke/noice.nvim",
         event = "VeryLazy",

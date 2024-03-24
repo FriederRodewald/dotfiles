@@ -1,10 +1,11 @@
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "r",
-      },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+            ensure_installed = {
+                "r",
+                "rnoweb",
+            },
+        },
     },
-  },
 }

@@ -38,10 +38,9 @@ for _, key in pairs({
     "<leader>`", -- Switch to Other Buffer
     "<leader>ur", -- Clear search, diff update and redraw
     "<leader>K", -- keywordprg
-    "<leader>l", -- Lazy (XXX)
-    "<leader>fn", -- New File (XXX)
-    "<leader>xl", -- Location List (XXX)
-    "<leader>xq", -- Quickfix List (XXX)
+    "<leader>l", -- Lazy
+    "<leader>xl", -- Location List
+    "<leader>xq", -- Quickfix List
     "[q", -- Previous Quickfix
     "]q", -- Next Quickfix
     "<leader>qq", -- quit
@@ -112,11 +111,6 @@ map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
 -- file tree/browser
 map("n", "<leader>t", ":Telescope file_browser<CR>", { desc = "File Tree/Browser (cwd)" })
 map("n", "<leader>T", ":Telescope file_browser path=~/<CR>", { desc = "File Tree/Browser (~/)" })
-
--- quarto related actions
--- map("n", "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", "Quarto Preview")
--- map("n", "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", "Quarto Close Preview")
--- map("n", "<leader>qh", ":QuartoHelp", "Quarto Help")
 
 -- toggle input suggestion
 local Util = require("lazyvim.util")
