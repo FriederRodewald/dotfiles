@@ -3,12 +3,12 @@
 -- Add any additional keymaps here
 
 local function map(mode, lhs, rhs, opts)
-  opts = opts or {}
-  opts.silent = opts.silent ~= false
-  if opts.remap and not vim.g.vscode then
-    opts.remap = nil
-  end
-  vim.keymap.set(mode, lhs, rhs, opts)
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
+    if opts.remap and not vim.g.vscode then
+        opts.remap = nil
+    end
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 --------------------------------------------------------------------------
@@ -17,72 +17,72 @@ end
 
 -- all modes
 for _, mode in pairs({ "i", "x", "n", "s" }) do
-  vim.keymap.del(mode, "<C-s>") -- save file in all modes
+    vim.keymap.del(mode, "<C-s>") -- save file in all modes
 end
 
 -- normal mode
 for _, key in pairs({
-  "<C-h>", -- move to window using the <ctrl> hjkl keys
-  "<C-j>",
-  "<C-k>",
-  "<C-l>",
-  "<C-Up>", -- resize window using <ctrl> arrow keys
-  "<C-Down>",
-  "<C-Left>",
-  "<C-Right>",
-  "<S-h>", -- prevBuffer
-  "<S-l>", -- nextBuffer
-  "[b", -- prevBuffer
-  "]b", -- nextBuffer
-  "<leader>bb", -- Switch to Other Buffer
-  "<leader>`", -- Switch to Other Buffer
-  "<leader>ur", -- Clear search, diff update and redraw
-  "<leader>K", -- keywordprg
-  "<leader>l", -- Lazy (XXX)
-  "<leader>fn", -- New File (XXX)
-  "<leader>xl", -- Location List (XXX)
-  "<leader>xq", -- Quickfix List (XXX)
-  "[q", -- Previous Quickfix
-  "]q", -- Next Quickfix
-  "<leader>qq", -- quit
-  "<c-/>", -- floating terminal
-  "<c-_>", -- floating terminal
-  "<leader>ww", -- windows
-  "<leader>wd",
-  "<leader>w-",
-  "<leader>w|",
-  "<leader>-",
-  "<leader>|",
-  "<leader><tab>l", --tabs
-  "<leader><tab>f",
-  "<leader><tab><tab>",
-  "<leader><tab>]",
-  "<leader><tab>d",
-  "<leader><tab>[",
+    "<C-h>", -- move to window using the <ctrl> hjkl keys
+    "<C-j>",
+    "<C-k>",
+    "<C-l>",
+    "<C-Up>", -- resize window using <ctrl> arrow keys
+    "<C-Down>",
+    "<C-Left>",
+    "<C-Right>",
+    "<S-h>", -- prevBuffer
+    "<S-l>", -- nextBuffer
+    "[b", -- prevBuffer
+    "]b", -- nextBuffer
+    "<leader>bb", -- Switch to Other Buffer
+    "<leader>`", -- Switch to Other Buffer
+    "<leader>ur", -- Clear search, diff update and redraw
+    "<leader>K", -- keywordprg
+    "<leader>l", -- Lazy (XXX)
+    "<leader>fn", -- New File (XXX)
+    "<leader>xl", -- Location List (XXX)
+    "<leader>xq", -- Quickfix List (XXX)
+    "[q", -- Previous Quickfix
+    "]q", -- Next Quickfix
+    "<leader>qq", -- quit
+    "<c-/>", -- floating terminal
+    "<c-_>", -- floating terminal
+    "<leader>ww", -- windows
+    "<leader>wd",
+    "<leader>w-",
+    "<leader>w|",
+    "<leader>-",
+    "<leader>|",
+    "<leader><tab>l", --tabs
+    "<leader><tab>f",
+    "<leader><tab><tab>",
+    "<leader><tab>]",
+    "<leader><tab>d",
+    "<leader><tab>[",
 }) do
-  vim.keymap.del("n", key)
+    vim.keymap.del("n", key)
 end
 
 -- insert mode
 for _, key in pairs({
-  ".", -- undo break-points
-  ",",
-  ";",
+    ".", -- undo break-points
+    ",",
+    ";",
 }) do
-  vim.keymap.del("i", key)
+    vim.keymap.del("i", key)
 end
 
 -- terminal mode
 for _, key in pairs({
-  "<esc><esc>", -- terminal mappings
-  "<C-h>",
-  "<C-j>",
-  "<C-k>",
-  "<C-l>",
-  "<C-/>",
-  "<c-_>",
+    "<esc><esc>", -- terminal mappings
+    "<C-h>",
+    "<C-j>",
+    "<C-k>",
+    "<C-l>",
+    "<C-/>",
+    "<c-_>",
 }) do
-  vim.keymap.del("t", key)
+    vim.keymap.del("t", key)
 end
 
 --------------------------------------------------------------------------
@@ -109,6 +109,10 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 -- remap undo
 map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
 
+-- file tree/browser
+map("n", "<leader>t", ":Telescope file_browser<CR>", { desc = "File Tree/Browser (cwd)" })
+map("n", "<leader>T", ":Telescope file_browser path=~/<CR>", { desc = "File Tree/Browser (~/)" })
+
 -- quarto related actions
 -- map("n", "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", "Quarto Preview")
 -- map("n", "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", "Quarto Close Preview")
@@ -118,19 +122,19 @@ map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
 local Util = require("lazyvim.util")
 
 map("n", "<leader>u<tab>", function()
-  vim.g.input_suggestion = vim.g.input_suggestion == false
-  if vim.g.input_suggestion then
-    Util.warn("Enabled Input Suggestion", { title = "Input Suggestion (buffer)" })
-  else
-    Util.info("Disabled Input Suggestion", { title = "Input Suggestion (buffer)" })
-  end
-  require("cmp").setup.buffer({
-    enabled = function()
-      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-      else
-        return vim.g.input_suggestion
-      end
-    end,
-  })
+    vim.g.input_suggestion = vim.g.input_suggestion == false
+    if vim.g.input_suggestion then
+        Util.warn("Enabled Input Suggestion", { title = "Input Suggestion (buffer)" })
+    else
+        Util.info("Disabled Input Suggestion", { title = "Input Suggestion (buffer)" })
+    end
+    require("cmp").setup.buffer({
+        enabled = function()
+            if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+                return false
+            else
+                return vim.g.input_suggestion
+            end
+        end,
+    })
 end, { desc = "Toggle Input Suggestion" })

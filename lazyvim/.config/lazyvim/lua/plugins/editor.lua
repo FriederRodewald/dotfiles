@@ -96,5 +96,24 @@ return {
                 desc = "Goto Symbol (Workspace)",
             },
         },
+        dependencies = {
+            {
+                "nvim-telescope/telescope-file-browser.nvim",
+            },
+        },
+        opts = {
+            extensions = {
+                file_browser = {
+                    hidden = { file_browser = true, folder_browser = false },
+                    follow_symlinks = true,
+                    prompt_path = true,
+                },
+            },
+        },
+        config = function(_, opts)
+            local telescope = require("telescope")
+            telescope.setup(opts)
+            telescope.load_extension("file_browser")
+        end,
     },
 }
