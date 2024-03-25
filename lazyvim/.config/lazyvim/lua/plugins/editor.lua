@@ -43,6 +43,9 @@ return {
             { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
             { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
             { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+            -- file tree/browser
+            { "<leader>t", "<cmd>Telescope file_browser<cr>", desc = "File Tree/Browser (cwd)" },
+            { "<leader>T", "<cmd>Telescope file_browser path=~/<cr>", desc = "File Tree/Browser (~/)" },
 
             -- find
             { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },

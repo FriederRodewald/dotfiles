@@ -4,7 +4,15 @@ return {
         opts = {
             servers = {
                 pyright = {},
-                r_language_server = {},
+                r_language_server = {
+                    settings = {
+                        r = {
+                            lsp = {
+                                rich_documentation = false,
+                            },
+                        },
+                    },
+                },
                 marksman = {
                     -- also needs: ~/.config/marksman/config.toml:
                     -- [core]

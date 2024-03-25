@@ -108,10 +108,6 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 -- remap undo
 map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
 
--- file tree/browser
-map("n", "<leader>t", ":Telescope file_browser<CR>", { desc = "File Tree/Browser (cwd)" })
-map("n", "<leader>T", ":Telescope file_browser path=~/<CR>", { desc = "File Tree/Browser (~/)" })
-
 -- toggle input suggestion
 local Util = require("lazyvim.util")
 

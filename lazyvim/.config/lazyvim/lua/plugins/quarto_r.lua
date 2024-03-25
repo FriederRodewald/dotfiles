@@ -1,3 +1,10 @@
+vim.cmd([[
+let g:slime_cell_delimiter = "^```{\?\a\+}\?$"
+let g:slime_preserve_curpos = 1
+let g:slime_dont_ask_default = 1
+let g:slime_default_config = {"socket_name": "default", "target_pane": ".2"}
+]])
+
 return {
 
     { "R-nvim/R.nvim" },
@@ -8,10 +15,14 @@ return {
         "quarto-dev/quarto-nvim",
         opts = {
             lspFeatures = {
-                languages = { "r", "python", "julia", "bash", "html", "lua" },
+                languages = { "r", "python", "julia", "bash", "lua", "html", "dot", "javascript", "typescript", "ojs" },
             },
         },
         ft = "quarto",
+        codeRunner = {
+            enabled = true,
+            default_method = "slime",
+        },
         keys = {
             { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "Quarto Preview" },
             { "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "Quarto Close" },
@@ -19,10 +30,18 @@ return {
             { "<leader>qe", ":lua require'otter'.export()<cr>", desc = "Quarto Export" },
             { "<leader>qrr", ":QuartoSendAbove<cr>", desc = "Quarto Run to Cursor" },
             { "<leader>qra", ":QuartoSendAll<cr>", desc = "Quarto Run All" },
-            { "<c-cr>", ":SlimeSend<cr>", desc = "Send Code Chunk" },
-            { "<c-cr>", "<esc>:SlimeSend<cr>i", mode = "i", desc = "Send Code Chunk" },
-            { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk" },
-            { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk" },
+
+            { "<leader>qc", ":SlimeConfig<cr>", desc = "Quarto SlimeConfig" },
+
+            { "<c-cr>", ":SlimeSend<cr>", desc = "Send Code Line", silent = true },
+            { "<c-cr>", "<esc>:SlimeSend<cr>a", mode = "i", desc = "Send Code Line", silent = true },
+            { "<s-cr>", ":SlimeSend<cr><Down>", desc = "Send Code Line (next line)", silent = true },
+            { "<s-cr>", "<esc>:SlimeSend<cr><Down>a", mode = "i", desc = "Send Code Line (next line)", silent = true },
+            { "<a-cr>", "<Plug>SlimeSendCell<cr><Up>", desc = "Send Code Cell", silent = true },
+            { "<a-cr>", "<esc><Plug>SlimeSendCell<cr><Up>a", mode = "i", desc = "Send Code Cell", silent = true },
+
+            { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk", silent = true },
+            { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk", silent = true },
         },
     },
 
@@ -31,7 +50,9 @@ return {
         opts = {
             buffers = {
                 set_filetype = true,
+                write_to_disk = true,
             },
+            handle_leading_whitespace = true,
         },
     },
 
@@ -43,22 +64,10 @@ return {
                 require("otter.tools.functions").is_otter_language_context("python")
             end
 
-            vim.cmd([[
-                    let g:slime_dispatch_ipython_pause = 100
-                    function SlimeOverride_EscapeText_quarto(text)
-                        call v:lua.Quarto_is_in_python_chunk()
-                        if exists('g:slime_python_ipython') && len(split(a:text,"\n")) > 1 && b:quarto_is_python_chunk
-                            return ["%cpaste -q\n", g:slime_dispatch_ipython_pause, a:text, "--", "\n"]
-                        else
-                            return a:text
-                        end
-                    endfunction
-                    ]])
-
             -- slime, tmux
             vim.g.slime_target = "tmux"
             vim.g.slime_bracketed_paste = 1
-            vim.g.slime_default_config = { socket_name = "default", target_pane = ".2" }
+            vim.g.slime_no_mappings = 1
         end,
     },
 
@@ -68,55 +77,39 @@ return {
             local opts = {}
             for _, ft in ipairs({ "quarto", "markdown", "rmd" }) do
                 opts[ft] = {
-                    headline_highlights = {},
-                    -- disable bullets for now. See https://github.com/lukas-reineke/headlines.nvim/issues/66
-                    bullets = {},
-                    --         query = vim.treesitter.parse_query(
-                    --             "markdown",
-                    --             [[
-                    --     (atx_heading [
-                    --         (atx_h1_marker)
-                    --         (atx_h2_marker)
-                    --         (atx_h3_marker)
-                    --         (atx_h4_marker)
-                    --         (atx_h5_marker)
-                    --         (atx_h6_marker)
-                    --     ] @headline)
-                    --
-                    --     (thematic_break) @dash
-                    --
-                    --     (fenced_code_block) @codeblock
-                    --
-                    --     (block_quote_marker) @quote
-                    --     (block_quote (paragraph (inline (block_continuation) @quote)))
-                    --     (block_quote (paragraph (block_continuation) @quote))
-                    --     (block_quote (block_continuation) @quote)
-                    -- ]]
-                    --         ),
+                    query = vim.treesitter.query.parse(
+                        "markdown",
+                        [[
+                            (atx_heading [
+                            (atx_h1_marker)
+                            (atx_h2_marker)
+                            (atx_h3_marker)
+                            (atx_h4_marker)
+                            (atx_h5_marker)
+                            (atx_h6_marker)
+                            ] @headline)
+
+                            (thematic_break) @dash
+
+                            (fenced_code_block) @codeblock
+
+                            (block_quote_marker) @quote
+                            (block_quote (paragraph (inline (block_continuation) @quote)))
+                            (block_quote (paragraph (block_continuation) @quote))
+                            (block_quote (block_continuation) @quote)
+                        ]]
+                    ),
+                    treesitter_language = "markdown",
                     codeblock_highlight = "CodeBlock",
                     dash_highlight = "Dash",
                     dash_string = "-",
                     quote_highlight = "Quote",
                     quote_string = "┃",
                     fat_headlines = true,
-                    fat_headline_upper_string = "▃",
-                    fat_headline_lower_string = "_",
                 }
-                for i = 1, 6 do
-                    local hl = "Headline" .. i
-                    vim.api.nvim_set_hl(0, hl, { link = "Headline", default = true })
-                    table.insert(opts[ft].headline_highlights, hl)
-                end
             end
             return opts
         end,
-        ft = { "qmd", "markdown", "rmd" },
-        config = function(_, opts)
-            -- PERF: schedule to prevent headlines slowing down opening a file
-            vim.schedule(function()
-                require("headlines").setup(opts)
-                require("headlines").refresh()
-            end)
-        end,
+        ft = { "quarto", "markdown", "rmd" },
     },
 }
