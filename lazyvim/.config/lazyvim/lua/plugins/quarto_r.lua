@@ -3,6 +3,8 @@ let g:slime_cell_delimiter = "^```{\?\a\+}\?$"
 let g:slime_preserve_curpos = 1
 let g:slime_dont_ask_default = 1
 let g:slime_default_config = {"socket_name": "default", "target_pane": ".2"}
+
+" highlight CodeBlock guibg=red
 ]])
 
 return {
@@ -100,7 +102,7 @@ return {
                         ]]
                     ),
                     treesitter_language = "markdown",
-                    codeblock_highlight = "CodeBlock",
+                    -- codeblock_highlight = "CodeBlock",
                     dash_highlight = "Dash",
                     dash_string = "-",
                     quote_highlight = "Quote",

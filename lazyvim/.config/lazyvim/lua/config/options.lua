@@ -9,13 +9,4 @@ vim.opt.timeoutlen = 700 -- Set the time to wait for a mapped sequence to comple
 
 vim.opt.conceallevel = 0 -- don't conceal code blocks in quarto
 
-vim.opt.pumblend = 0
-
 vim.g.input_suggestion = true -- Input Sugesstion (toggle with "<leader>u<tab>")
-
--- highlight (currently not working)
--- vim.cmd([[highlight Headline1 guibg=#FF0000]])
--- vim.cmd([[highlight Headline2 guibg=#00FF00]])
--- vim.cmd([[highlight Headline3 guibg=#0000FF]])
--- vim.cmd([[highlight CodeBlock guibg=#000000]])
--- vim.cmd([[highlight Dash guibg=#FF0000 gui=bold]])
