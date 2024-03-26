@@ -9,7 +9,12 @@ let g:slime_default_config = {"socket_name": "default", "target_pane": ".2"}
 
 return {
 
-    { "R-nvim/R.nvim" },
+    {
+        "R-nvim/R.nvim",
+        opts = {
+            active_window_warn = false,
+        },
+    },
 
     { "R-nvim/cmp-r" },
 

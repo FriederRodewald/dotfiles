@@ -5,6 +5,7 @@ return {
             servers = {
                 pyright = {},
                 r_language_server = {
+                    mason = false,
                     settings = {
                         r = {
                             lsp = {

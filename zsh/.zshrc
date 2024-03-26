@@ -17,6 +17,7 @@ ZSH_THEME="a_theme"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -103,11 +104,10 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/dotfiles/zsh/.oh-my-zsh/custom/.aliases
 
-export PATH="$PATH:/opt/nvim-linux64/bin"
-alias lv="NVIM_APPNAME=lazyvim nvim"
+# export PATH="$PATH:/opt/nvim-linux64/bin"
 
 function nvims() {
-  items=("default" "lazyvim")
+  items=("default" "nvim_old")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"

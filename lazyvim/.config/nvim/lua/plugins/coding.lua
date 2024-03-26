@@ -8,6 +8,7 @@ return {
                 ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
             })
             opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "otter" } }))
+            opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "cmp_r" } }))
         end,
     },
 }
