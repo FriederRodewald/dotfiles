@@ -16,8 +16,6 @@ return {
         },
     },
 
-    { "R-nvim/cmp-r" },
-
     {
         "quarto-dev/quarto-nvim",
         opts = {
