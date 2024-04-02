@@ -18,16 +18,27 @@ return {
 
     {
         "quarto-dev/quarto-nvim",
+        dev = false,
         opts = {
             lspFeatures = {
                 languages = { "r", "python", "julia", "bash", "lua", "html", "dot", "javascript", "typescript", "ojs" },
             },
+            codeRunner = {
+                enabled = true,
+                default_method = "slime",
+            },
+            keymap = {
+                -- set whole section or individual keys to `false` to disable
+                hover = "K",
+                definition = "gd",
+                type_definition = "gD",
+                rename = "<leader>cr",
+                format = "<leader>cf",
+                references = "gr",
+                document_symbols = "<leader>ss",
+            },
         },
         ft = "quarto",
-        codeRunner = {
-            enabled = true,
-            default_method = "slime",
-        },
         keys = {
             { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "Quarto Preview" },
             { "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "Quarto Close" },
@@ -38,26 +49,32 @@ return {
 
             { "<leader>qc", ":SlimeConfig<cr>", desc = "Quarto SlimeConfig" },
 
-            { "<c-cr>", ":SlimeSend<cr>", desc = "Send Code Line", silent = true },
+            { "<c-cr>", ":SlimeSend<cr><Down>", desc = "Send Code Line (n:next line)", silent = true },
             { "<c-cr>", "<esc>:SlimeSend<cr>a", mode = "i", desc = "Send Code Line", silent = true },
-            { "<s-cr>", ":SlimeSend<cr><Down>", desc = "Send Code Line (next line)", silent = true },
-            { "<s-cr>", "<esc>:SlimeSend<cr><Down>a", mode = "i", desc = "Send Code Line (next line)", silent = true },
+            { "<s-cr>", "<Plug>SlimeParagraphSend<cr><Up>", desc = "Send Code Paragraph", silent = true },
+            {
+                "<s-cr>",
+                "<esc><Plug>SlimeParagraphSend<cr><Up>",
+                mode = "i",
+                desc = "Send Code Paragraph",
+                silent = true,
+            },
             { "<a-cr>", "<Plug>SlimeSendCell<cr><Up>", desc = "Send Code Cell", silent = true },
             { "<a-cr>", "<esc><Plug>SlimeSendCell<cr><Up>a", mode = "i", desc = "Send Code Cell", silent = true },
 
             { "<c-cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk", silent = true },
             { "<cr>", "<Plug>SlimeRegionSend<cr>", mode = "v", desc = "Send Code Chunk", silent = true },
         },
-    },
-
-    {
-        "jmbuhr/otter.nvim",
-        opts = {
-            buffers = {
-                set_filetype = true,
-                write_to_disk = true,
+        dependencies = {
+            "jmbuhr/otter.nvim",
+            dev = false,
+            opts = {
+                buffers = {
+                    set_filetype = true,
+                    write_to_disk = true,
+                },
+                handle_leading_whitespace = true,
             },
-            handle_leading_whitespace = true,
         },
     },
 
