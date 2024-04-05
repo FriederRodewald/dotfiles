@@ -2,6 +2,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         opts = {
+            format = { timeout_ms = 3000 },
             servers = {
                 pyright = {},
                 r_language_server = {
