@@ -21,10 +21,37 @@ return {
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
 
     {
+        "nvim-pack/nvim-spectre",
+        opts = {
+            highlight = {
+                ui = "String",
+                search = "DiffChange",
+                replace = "DiffDelete",
+            },
+        },
+    },
+
+    {
         "folke/flash.nvim",
         opts = {
             highlight = {
                 backdrop = false,
+            },
+            modes = {
+                char = {
+                    highlight = {
+                        backdrop = false,
+                    },
+                },
+            },
+        },
+    },
+
+    {
+        "folke/which-key.nvim",
+        opts = {
+            defaults = {
+                ["<leader>cq"] = { name = "+quarto" },
             },
         },
     },

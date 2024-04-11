@@ -5,4 +5,18 @@ alias vi="nvim"
 alias r="radian --ask-save"
 alias o="gnome-open"
 alias 2rm="cd ~/Nextcloud/reMarkable && rmapi mput . && cd -"  
-alias lg=lazygit
+alias lg="lazygit"
+
+# fuzzy find directories and files with preview 
+fD() {
+  cd ~
+  cd "$(find -type d -not -path '*/.*' 2>/dev/null | fzf --height=40% --border=rounded --margin=2% --info=inline --preview='tree -C {}' --preview-window='45%,border-sharp' --prompt='Dirs > ')"
+}
+fd() {
+  cd "$(find -type d 2>/dev/null | fzf --height=40% --border=rounded --margin=2% --info=inline --preview='tree -C {}' --preview-window='45%,border-sharp' --prompt='Dirs > ')"
+}
+ff() {
+  local file
+  file=$(find -type f 2>/dev/null | fzf --height=40% --border=rounded --margin=2% --info=inline --preview='tree -C {}' --preview-window='45%,border-sharp' --prompt='Files > ' --bind='esc:abort')
+  [ -n "$file" ] && v "$file"
+}

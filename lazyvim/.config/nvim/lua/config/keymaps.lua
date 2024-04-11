@@ -65,8 +65,7 @@ end
 
 -- terminal mode
 for _, key in pairs({
-    "<esc><esc>", -- terminal mappings
-    "<C-h>",
+    "<C-h>", -- terminal mappings
     "<C-j>",
     "<C-k>",
     "<C-l>",

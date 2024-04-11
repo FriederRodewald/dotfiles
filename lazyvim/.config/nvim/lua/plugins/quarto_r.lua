@@ -40,14 +40,14 @@ return {
         },
         ft = "quarto",
         keys = {
-            { "<leader>qp", ":lua require'quarto'.quartoPreview()<cr>", desc = "Quarto Preview" },
-            { "<leader>qq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "Quarto Close" },
-            { "<leader>qh", ":QuartoHelp ", desc = "Quarto Help" },
-            { "<leader>qe", ":lua require'otter'.export()<cr>", desc = "Quarto Export" },
-            { "<leader>qrr", ":QuartoSendAbove<cr>", desc = "Quarto Run to Cursor" },
-            { "<leader>qra", ":QuartoSendAll<cr>", desc = "Quarto Run All" },
+            { "<leader>cqp", ":lua require'quarto'.quartoPreview()<cr>", desc = "Quarto Preview" },
+            { "<leader>cqq", ":lua require'quarto'.quartoClosePreview()<cr>", desc = "Quarto Close" },
+            { "<leader>cqh", ":QuartoHelp ", desc = "Quarto Help" },
+            { "<leader>cqe", ":lua require'otter'.export()<cr>", desc = "Quarto Export" },
+            { "<leader>cqrr", ":QuartoSendAbove<cr>", desc = "Quarto Run to Cursor" },
+            { "<leader>cqra", ":QuartoSendAll<cr>", desc = "Quarto Run All" },
 
-            { "<leader>qc", ":SlimeConfig<cr>", desc = "Quarto SlimeConfig" },
+            { "<leader>cqc", ":SlimeConfig<cr>", desc = "Quarto SlimeConfig" },
 
             { "<c-cr>", ":SlimeSend<cr><Down>", desc = "Send Code Line (n:next line)", silent = true },
             { "<c-cr>", "<esc>:SlimeSend<cr>a", mode = "i", desc = "Send Code Line", silent = true },

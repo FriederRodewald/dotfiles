@@ -9,4 +9,6 @@ vim.opt.timeoutlen = 700 -- Set the time to wait for a mapped sequence to comple
 
 vim.opt.conceallevel = 0 -- don't conceal code blocks in quarto
 
-vim.g.input_suggestion = true -- Input Sugesstion (toggle with "<leader>u<tab>")
+vim.g.input_suggestion = true -- input sugesstion (toggle with "<leader>u<tab>")
+
+vim.opt.showtabline = 0 -- don't show tabline
