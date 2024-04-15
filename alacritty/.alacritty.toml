@@ -28,7 +28,7 @@ program = "/bin/zsh"
 
 [window]
 decorations = "none"
-opacity = 0.95
+opacity = 0.92
 
 [window.dimensions]
 columns = 200
@@ -41,7 +41,7 @@ y = 8
 # TokyoNight Alacritty Colors
 # Default colors
 [colors.primary]
-# background = '#222436'
+background = '#0e1022'
 foreground = '#c8d3f5'
 
 [colors.cursor]
@@ -70,10 +70,10 @@ magenta = '#c099ff'
 cyan = '#86e1fc'
 white = '#c8d3f5'
 
-# Indexed Colors
-[[colors.indexed_colors]]
-index = 16
-color = '#ff966c'
+# # Indexed Colors
+# [[colors.indexed_colors]]
+# index = 16
+# color = '#ff966c'
 
 [[colors.indexed_colors]]
 index = 17
