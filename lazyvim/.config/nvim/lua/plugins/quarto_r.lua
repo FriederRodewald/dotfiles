@@ -121,6 +121,10 @@ return {
                             (block_quote (block_continuation) @quote)
                         ]]
                     ),
+                    headline_highlights = { "" },
+                    fat_headline_upper_string = "",
+                    fat_headline_lower_string = "",
+                    bullets = {},
                     treesitter_language = "markdown",
                     -- codeblock_highlight = "CodeBlock",
                     dash_highlight = "Dash",
