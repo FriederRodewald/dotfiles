@@ -99,6 +99,10 @@ map("n", "<leader>w", "<cmd>w<cr><esc>", { desc = "[W]rite" })
 -- remap undo
 map({ "n", "v" }, "U", "<C-r>", { desc = "[U]ndo" })
 
+-- add shortcut for pipe and assign operator in R
+map("i", "<A-p>", "|>", { desc = "[P]ipe" })
+map("i", "<A-a>", "<-", { desc = "[A]ssign" })
+
 -- toggle input suggestion
 local Util = require("lazyvim.util")
 

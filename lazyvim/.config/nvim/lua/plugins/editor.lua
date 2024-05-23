@@ -154,6 +154,7 @@ return {
             extensions = {
                 file_browser = {
                     hidden = { file_browser = true, folder_browser = false },
+                    respect_gitignore = false,
                     follow_symlinks = true,
                     prompt_path = true,
                 },

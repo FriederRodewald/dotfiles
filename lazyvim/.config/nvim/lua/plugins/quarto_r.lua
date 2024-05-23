@@ -11,9 +11,7 @@ return {
 
     {
         "R-nvim/R.nvim",
-        opts = {
-            active_window_warn = false,
-        },
+        lazy = false,
     },
 
     {
@@ -93,45 +91,45 @@ return {
         end,
     },
 
-    {
-        "lukas-reineke/headlines.nvim",
-        opts = function()
-            local opts = {}
-            for _, ft in ipairs({ "quarto", "markdown", "rmd" }) do
-                opts[ft] = {
-                    query = vim.treesitter.query.parse(
-                        "markdown",
-                        [[
-                            (atx_heading [
-                            (atx_h1_marker)
-                            (atx_h2_marker)
-                            (atx_h3_marker)
-                            (atx_h4_marker)
-                            (atx_h5_marker)
-                            (atx_h6_marker)
-                            ] @headline)
-
-                            (thematic_break) @dash
-
-                            (fenced_code_block) @codeblock
-
-                            (block_quote_marker) @quote
-                            (block_quote (paragraph (inline (block_continuation) @quote)))
-                            (block_quote (paragraph (block_continuation) @quote))
-                            (block_quote (block_continuation) @quote)
-                        ]]
-                    ),
-                    treesitter_language = "markdown",
-                    -- codeblock_highlight = "CodeBlock",
-                    dash_highlight = "Dash",
-                    dash_string = "-",
-                    quote_highlight = "Quote",
-                    quote_string = "┃",
-                    fat_headlines = true,
-                }
-            end
-            return opts
-        end,
-        ft = { "quarto", "markdown", "rmd" },
-    },
+    -- {
+    --     "lukas-reineke/headlines.nvim",
+    --     opts = function()
+    --         local opts = {}
+    --         for _, ft in ipairs({ "quarto", "markdown", "rmd" }) do
+    --             opts[ft] = {
+    --                 query = vim.treesitter.query.parse(
+    --                     "markdown",
+    --                     [[
+    --                         (atx_heading [
+    --                         (atx_h1_marker)
+    --                         (atx_h2_marker)
+    --                         (atx_h3_marker)
+    --                         (atx_h4_marker)
+    --                         (atx_h5_marker)
+    --                         (atx_h6_marker)
+    --                         ] @headline)
+    --
+    --                         (thematic_break) @dash
+    --
+    --                         (fenced_code_block) @codeblock
+    --
+    --                         (block_quote_marker) @quote
+    --                         (block_quote (paragraph (inline (block_continuation) @quote)))
+    --                         (block_quote (paragraph (block_continuation) @quote))
+    --                         (block_quote (block_continuation) @quote)
+    --                     ]]
+    --                 ),
+    --                 treesitter_language = "markdown",
+    --                 -- codeblock_highlight = "CodeBlock",
+    --                 dash_highlight = "Dash",
+    --                 dash_string = "-",
+    --                 quote_highlight = "Quote",
+    --                 quote_string = "┃",
+    --                 fat_headlines = true,
+    --             }
+    --         end
+    --         return opts
+    --     end,
+    --     ft = { "quarto", "markdown", "rmd" },
+    -- },
 }

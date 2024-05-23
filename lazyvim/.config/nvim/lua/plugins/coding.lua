@@ -2,9 +2,9 @@ return {
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
-            -- "R-nvim/cmp-r",
-            "jmbuhr/cmp-pandoc-references",
             "jmbuhr/otter.nvim",
+            "jmbuhr/cmp-pandoc-references",
+            "R-nvim/cmp-r",
         },
         opts = function(_, opts)
             local cmp = require("cmp")
@@ -15,6 +15,7 @@ return {
             opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
                 { name = "otter" },
                 { name = "cmp_r" },
+                { name = "pandoc_references" },
             }))
         end,
     },
