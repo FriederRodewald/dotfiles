@@ -83,27 +83,27 @@ return {
                 "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
                 desc = "Switch Buffer",
             },
-            { "<leader>/", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+            { "<leader>/", Util.pick("live_grep"), desc = "Grep (root dir)" },
             { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-            { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
+            { "<leader><space>", Util.pick("files"), desc = "Find Files (root dir)" },
             -- file tree/browser
             { "<leader>t", "<cmd>Telescope file_browser<cr>", desc = "File Tree/Browser (cwd)" },
             { "<leader>T", "<cmd>Telescope file_browser path=~/<cr>", desc = "File Tree/Browser (~/)" },
 
             -- find
             { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-            { "<leader>fc", Util.telescope.config_files(), desc = "Find Config File" },
-            { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
-            { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+            { "<leader>fc", Util.pick.config_files(), desc = "Find Config File" },
+            { "<leader>ff", Util.pick("files"), desc = "Find Files (root dir)" },
+            { "<leader>fF", Util.pick("files", { cwd = false }), desc = "Find Files (cwd)" },
             { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
             { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-            { "<leader>fR", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
-            { "<leader>fg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
-            { "<leader>fG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-            { "<leader>fw", Util.telescope("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
-            { "<leader>fW", Util.telescope("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
-            { "<leader>fw", Util.telescope("grep_string"), mode = "v", desc = "Selection (root dir)" },
-            { "<leader>fW", Util.telescope("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
+            { "<leader>fR", Util.pick("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
+            { "<leader>fg", Util.pick("live_grep"), desc = "Grep (root dir)" },
+            { "<leader>fG", Util.pick("live_grep", { cwd = false }), desc = "Grep (cwd)" },
+            { "<leader>fw", Util.pick("grep_string", { word_match = "-w" }), desc = "Word (root dir)" },
+            { "<leader>fW", Util.pick("grep_string", { cwd = false, word_match = "-w" }), desc = "Word (cwd)" },
+            { "<leader>fw", Util.pick("grep_string"), mode = "v", desc = "Selection (root dir)" },
+            { "<leader>fW", Util.pick("grep_string", { cwd = false }), mode = "v", desc = "Selection (cwd)" },
 
             -- git
             { "<leader>gc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
@@ -121,7 +121,7 @@ return {
             { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
             {
                 "<leader>uC",
-                Util.telescope("colorscheme", { enable_preview = true }),
+                Util.pick("colorscheme", { enable_preview = true }),
                 desc = "Colorscheme with preview",
             },
             {

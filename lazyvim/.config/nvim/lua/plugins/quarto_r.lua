@@ -69,7 +69,7 @@ return {
             opts = {
                 buffers = {
                     set_filetype = true,
-                    write_to_disk = true,
+                    write_to_disk = false,
                 },
                 handle_leading_whitespace = true,
             },
