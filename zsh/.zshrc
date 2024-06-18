@@ -105,15 +105,3 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/zsh/.oh-my-zsh/custom/.aliases
 
 # export PATH="$PATH:/opt/nvim-linux64/bin"
-
-function nvims() {
-  items=("default" "nvim_old")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    config=""
-  fi
-  NVIM_APPNAME=$config nvim $@
-}

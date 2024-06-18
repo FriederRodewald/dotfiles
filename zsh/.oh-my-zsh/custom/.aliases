@@ -20,3 +20,16 @@ ff() {
   file=$(find -type f 2>/dev/null | fzf --height=40% --border=rounded --margin=2% --info=inline --preview='tree -C {}' --preview-window='45%,border-sharp' --prompt='Files > ' --bind='esc:abort')
   [ -n "$file" ] && v "$file"
 }
+
+# select desired nvim configuration
+nvims() {
+  items=("default" "my_nvim" "nvim_old")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME=$config nvim $@
+}
