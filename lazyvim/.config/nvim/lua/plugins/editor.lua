@@ -48,15 +48,6 @@ return {
     },
 
     {
-        "folke/which-key.nvim",
-        opts = {
-            defaults = {
-                ["<leader>cq"] = { name = "+quarto" },
-            },
-        },
-    },
-
-    {
         "lewis6991/gitsigns.nvim",
         opts = {
             on_attach = function() end,
