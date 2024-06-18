@@ -35,11 +35,11 @@ colorout::setOutputColors(
 #     r["CRAN"] <- "https://cran.rstudio.com/"
 #     options(repos = r)
 # })
-#
-# # Disable completion from the language server
-# options(
-#     languageserver.server_capabilities =
-#         list(completionProvider = FALSE, completionItemResolve = FALSE)
-# )
-#
+
+# Disable completion from the language server
+options(
+    languageserver.server_capabilities =
+        list(completionProvider = FALSE, completionItemResolve = FALSE)
+)
+
 # options(continue = " ")
