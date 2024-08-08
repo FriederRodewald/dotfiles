@@ -28,6 +28,9 @@ return {
                 { name = "cmp_r" },
                 { name = "pandoc_references" },
             }))
+            opts.experimental = {
+                ghost_text = false,
+            }
         end,
     },
 }

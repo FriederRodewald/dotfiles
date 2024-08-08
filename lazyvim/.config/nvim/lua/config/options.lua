@@ -9,7 +9,7 @@ vim.opt.scrolloff = 8 -- Set the minimal number of screen lines to keep above an
 vim.opt.sidescrolloff = 24 -- Set the minimal number of screen columns to keep to the left and right of the cursor if wrap is false.
 vim.opt.timeoutlen = 700 -- Set the time to wait for a mapped sequence to complete (in milliseconds).
 
-vim.opt.conceallevel = 0 -- don't conceal code blocks in quarto
+vim.opt.conceallevel = 1 -- don't conceal code blocks in quarto
 
 vim.g.input_suggestion = true -- input sugesstion (toggle with "<leader>u<tab>")
 

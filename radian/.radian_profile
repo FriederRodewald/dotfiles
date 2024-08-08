@@ -24,7 +24,7 @@ options(radian.auto_match = TRUE)
 options(radian.auto_suggest = FALSE)
 
 # highlight matching bracket
-options(radian.highlight_matching_bracket = FALSE)
+options(radian.highlight_matching_bracket = TRUE)
 
 # auto indentation for new line and curly braces
 options(radian.auto_indentation = TRUE)
@@ -47,7 +47,7 @@ options(radian.auto_width = TRUE)
 options(radian.insert_new_line = TRUE)
 
 # max number of history records
-options(radian.history_size = 20000)
+options(radian.history_size = 2000)
 # where the global history is stored, environmental variables will be expanded
 # note that "~" is expanded to %USERPROFILE% or %HOME% in Windows
 options(radian.global_history_file = "~/.radian_history")

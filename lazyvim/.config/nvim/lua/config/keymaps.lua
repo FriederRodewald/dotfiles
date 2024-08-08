@@ -38,10 +38,10 @@ for _, key in pairs({
     "<leader>qq", -- quit
     "<c-/>", -- floating terminal
     "<c-_>", -- floating terminal
-    "<leader>ww", -- windows
-    "<leader>wd",
-    "<leader>w-",
-    "<leader>w|",
+    -- "<leader>ww", -- windows
+    -- "<leader>wd",
+    -- "<leader>w-",
+    -- "<leader>w|",
     "<leader>-",
     "<leader>|",
     "<leader><tab>l", --tabs
